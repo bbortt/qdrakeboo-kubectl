@@ -1,0 +1,6 @@
+# Ignore non-docker files
+.git*
+.idea/
+LICENSE
+*.iml
+README.md
