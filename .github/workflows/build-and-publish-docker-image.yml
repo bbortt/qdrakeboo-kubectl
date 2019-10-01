@@ -1,0 +1,38 @@
+name: Build and publish qdrakeboo-kubectl
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout master
+        uses: actions/checkout@master
+
+      - name: Update SHA
+        run: echo $GITHUB_SHA > $GITHUB_WORKSPACE/site/_meta
+
+      - name: Build container image
+        uses: actions/docker/cli@master
+        with:
+          args: build \
+            --build-arg VCS_REF=`git rev-parse --short HEAD` \
+            --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
+            -t bbortt/qdrakeboo-kubectl:$(echo $GITHUB_SHA | head -c7) .
+
+      - name: Docker Login
+        uses: actions/docker/login@master
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: Push image to Docker Hub
+        uses: actions/docker/cli@master
+        with:
+          args: push bbortt/qdrakeboo-kubectl
