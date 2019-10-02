@@ -16,7 +16,7 @@ ENV KUBECTL_VERSION="v1.16.0"
 RUN \
     mkdir /home/deployer && \
     adduser -S -h /home/deployer deployer && \
-    apk add --update ca-certificates && \
+    apk add --update bash ca-certificates && \
     apk add --update -t deps curl && \
     curl -L https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl && \
     chmod +x /usr/local/bin/kubectl && \
