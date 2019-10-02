@@ -33,4 +33,4 @@ jobs:
       - name: Push image to Docker Hub
         uses: actions/docker/cli@master
         with:
-          args: push bbortt/qdrakeboo-kubectl
+          args: push bbortt/qdrakeboo-kubectl:$(echo $GITHUB_SHA | head -c7)
