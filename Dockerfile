@@ -23,8 +23,11 @@ RUN \
     apk del --purge deps && \
     rm /var/cache/apk/*
 
-ENV KUBE_SCORE_VERSION="v1.2.1"
-COPY --from=zegl/kube-score:$KUBE_SCORE_VERSION /kube-score /usr/local/bin/kube-score
+COPY --from=zegl/kube-score:v1.2.1 /kube-score /usr/local/bin/kube-score
+
+RUN \
+    kubectl --version && \
+    kube-score --version
 
 USER deployer
 WORKDIR /home/deployer
