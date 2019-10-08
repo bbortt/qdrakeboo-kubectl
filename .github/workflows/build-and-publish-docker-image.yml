@@ -12,25 +12,15 @@ jobs:
 
     steps:
 
-      - name: Checkout master
+      - name: Build an publish Docker image
         uses: actions/checkout@v1
-
-      - name: Build Docker image
-        uses: actions/docker/cli@master
-        with:
-          args: |
-            build \
+        env:
+          DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
+          DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+        run: |
+          docker build \
               --build-arg VCS_REF=`git rev-parse --short HEAD` \
               --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`\
-              -t bbortt/qdrakeboo-kubectl:$(echo $GITHUB_SHA | head -c7) .
-
-      - name: Docker Login
-        uses: actions/docker/login@master
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
-
-      - name: Push image to Docker Hub
-        uses: actions/docker/cli@master
-        with:
-          args: push bbortt/qdrakeboo-kubectl:$(echo $GITHUB_SHA | head -c7)
+              -t bbortt/qdrakeboo-kubectl:$(echo $GITHUB_SHA | head -c7) . && \
+          echo $DOCKERHUB_PASSWORD | docker login --username $DOCKERHUB_USERNAME --password-stdin && \
+          docker push bbortt/qdrakeboo-kubectl:$(echo $GITHUB_SHA | head -c7)
