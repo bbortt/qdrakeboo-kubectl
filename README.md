@@ -9,8 +9,8 @@ Qdrakeboo-Kubectl
 
 # Image contains
 * [kubectl](https://github.com/kubernetes/kubectl)
-* [kube-Score](https://github.com/zegl/kube-score) - Kubernetes object analysis with recommendations for improved reliability and security
-* [kubectl_vault_sync](https://github.com/postfinance/kubectl-vault_sync) - a plugin for syncing secrets with [Hashicorp Vault](https://github.com/hashicorp/vault)
+* [kube-score](https://github.com/zegl/kube-score) - Kubernetes object analysis with recommendations for improved reliability and security
+* [kubectl_vault_sync](https://github.com/postfinance/kubectl-vault_sync) - a plugin to sync Kubernetes secrets with [Hashicorp Vault](https://github.com/hashicorp/vault)
 
 # License
 
