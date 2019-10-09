@@ -1,0 +1,29 @@
+language: minimal
+
+sudo: false
+
+notifications:
+  email: false
+
+services:
+  - docker
+
+env:
+  global:
+    - secure: "F3elXrhy/Z5Tcaz/+XjuBH/SwosM0YVzggmG8GLs/H3U9NBnjlVcCpggQlplnlcexQ4TYaNmwkOCbDAu5Rn1S0acv3jdyAJVHVIJEafxS0A8eE5vOK/dbkTd+ODQhPlQSR4xRZwTDKuBryPHUVLn+IXUVx2HzcsoP8hwSnmBwrSZDxJzAA177yEVE4nT4XGg4VOg0zNHdUhGlkws/WaH3pkZSbSuymjqbbznkFHq4FFHeoiGYkniCS784uWMWawmr802bLjBB431TV5s1p1de9wKqNF/8CMNlR6xWdEaX80wDJTnZQyfL5Wb7AbaOSg79qTjIRwC9ab9AAJaZgXIbLYOyq63w5+Y7Gn6KST83evuMKwAYFuhSXRgDYM8ytLq+2McGFFSTHNVptzGES3Xf9Kef4+XB1Fuw5PLL0TR7ItxUUjhct2uYlcyebm/DvtL/AQlMR+xRB6rtCjS36t53SoZSdzRQRriZfao70CEZQgaQtjrBHWPV/gPZ1LhezBGDV29JXXoCcpd7ij9iITikuf8F719zZ/n0kORVykc8IKP15Z/1I0PU/KTfmaitHzUJMuL+B6SZ1SXs67EjXCIlfqCJVjcjU688JJEx2S7dE1JZ25WKk/A+2zEiwhR8HDzIvF/+iRcRKDk0UIChC1ma9Zh5ubuNHg73mnj5+lTQpw="
+    # ^^ DOCKER_USERNAME
+    - secure: "EpZKDHVpZq4Lp/w7YQf72NklI/+HdXjktKGa1iFLzcSUVZM6rr71IN8SjwQ6gu86BzxKgoY7gdjrRPqjUoz+jQlpE4h5fFmAAC3kPfgSyovZ35MabnDXEY+5MuHoliO1y039p7Sdu7OqYUYYP0bb3CBdgYFvhepQ/OK+FsSS58DiWEhsQnHZDTdT4rvQ/oIbb3iCWsqpHixIPGS2T7JGF934m7oRiDsABAm3XSOJ0KZ+27JpeaXSlHfLh7xVzIj6DI+Bhd8tt8R7bnmj05a5IJsv0pyjLAgo/r5sgd8C0aAt/icd2TBgAa+bKt2I0nm+p3Mh137ACwnK8/tunSqe5qQDPWalb7c76jnO+8qbB73D/2RJODIAECyrqZkGXIejitoSVXBrAZxbxmkNASXiUThODka9KTrfgK8I+P3WTdOOCFXiPXevoRBUcYeW9oL0cforFkSDgZGhFJOcTDtsxdOuw56ppwtBDYWmmSs6GS2TqnswitqVLCNT0rLQ3vNABCAQj7RE/Nk7voeqhu19xPJ1BD1GTB99NN6qLype1fjKOzMReFGyuRsUQJOow9BxykKbTVQyXSHFOeywXxiT7tRjyK1aO7nqgA8KuIP5arLNJnwptAQw/pUa7MW7iOCDkUDCXEPO3L5rEnkJ/43rXK+MR/U5V4H9IkqVpPUj2z0="
+    # ^^ DOCKER_PASSWORD
+
+before_script:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+
+script:
+  - docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` -t bbortt/qdrakeboo-kubectl:$(echo $GITHUB_SHA | head -c7) .
+
+deploy:
+  - provider: script
+    script: docker push bbortt/qdrakeboo-kubectl:$(echo $GITHUB_SHA | head -c7)
+    on:
+      repo: bbortt/qdrakeboo-kubectl
+      branch: master
