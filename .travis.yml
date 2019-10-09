@@ -19,7 +19,8 @@ before_script:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
 script:
-  - docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` -t bbortt/qdrakeboo-kubectl:$(echo $GITHUB_SHA | head -c7) .
+  - export GITHUB_SHA=$(git rev-parse --short HEAD)
+  - docker build --build-arg VCS_REF=$GITHUB_SHA --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` -t bbortt/qdrakeboo-kubectl:$(echo $GITHUB_SHA | head -c7) .
 
 deploy:
   - provider: script
