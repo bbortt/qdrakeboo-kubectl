@@ -20,11 +20,11 @@ before_script:
 
 script:
   - export GITHUB_SHA=$(git rev-parse --short HEAD)
-  - docker build --build-arg VCS_REF=$GITHUB_SHA --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` -t bbortt/qdrakeboo-kubectl:$(echo $GITHUB_SHA | head -c7) .
+  - docker build --build-arg VCS_REF=$GITHUB_SHA --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` -t qdrakeboo/kubectl:$(echo $GITHUB_SHA | head -c7) .
 
 deploy:
   - provider: script
-    script: docker push bbortt/qdrakeboo-kubectl:$(echo $GITHUB_SHA | head -c7)
+    script: docker push qdrakeboo/kubectl:$(echo $GITHUB_SHA | head -c7)
     on:
       repo: bbortt/qdrakeboo-kubectl
       branch: master
