@@ -10,8 +10,10 @@ Qdrakeboo-Kubectl
 # Image contains
 * [kubectl](https://github.com/kubernetes/kubectl)
 * [kube-score](https://github.com/zegl/kube-score) - Kubernetes object analysis with recommendations for improved reliability and security
-* [kubectl_vault_sync](https://github.com/postfinance/kubectl-vault_sync) - a plugin to sync Kubernetes secrets with [Hashicorp Vault](https://github.com/hashicorp/vault)
+* [kubectl-vault_sync](https://github.com/postfinance/kubectl-vault_sync) - a plugin to sync Kubernetes secrets with [Hashicorp Vault](https://github.com/hashicorp/vault)
+
+# Example usage
+An example using GitHub Actions is available in [bbortt/qdrakeboo-deplyoment](https://github.com/bbortt/qdrakeboo-deployment).
 
 # License
-
 This project is licensed under the terms of the [MIT license](https://github.com/bbortt/qdrakeboo-kubectl/blob/master/LICENSE).
