@@ -8,7 +8,7 @@ Qdrakeboo-Kubectl
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
 # Image contains
-* [kubectl](https://github.com/kubernetes/kubectl)
+* [kubectl](https://github.com/kubernetes/kubectl) - The Kubernetes command-line tool, kubectl, allows you to run commands against Kubernetes clusters.
 * [kube-score](https://github.com/zegl/kube-score) - Kubernetes object analysis with recommendations for improved reliability and security
 * [kubectl-vault_sync](https://github.com/postfinance/kubectl-vault_sync) - a plugin to sync Kubernetes secrets with [Hashicorp Vault](https://github.com/hashicorp/vault)
 
