@@ -23,7 +23,7 @@ RUN \
     mkdir /home/deployer && \
     adduser -S -h /home/deployer deployer && \
     apk update && \
-    apk add --update bash ca-certificates git && \
+    apk add --update bash ca-certificates git gettext && \
     apk add --update -t deps make curl && \
     curl -fsSL https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl && \
     chmod +x /usr/local/bin/kubectl
