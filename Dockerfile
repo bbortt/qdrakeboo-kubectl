@@ -1,4 +1,4 @@
-FROM alpine:3.10
+FROM alpine:3.13
 LABEL maintainer="Timon Borter <bbortt.github.io>"
 
 ARG VCS_REF
@@ -11,7 +11,7 @@ LABEL org.label-schema.vcs-ref=$VCS_REF \
 
 CMD ["kubectl", "help"]
 
-ENV KUBECTL_VERSION="v1.16.0"
+ENV KUBECTL_VERSION="v1.20.6"
 
 RUN \
     mkdir /home/deployer && \
@@ -22,11 +22,11 @@ RUN \
     curl -fsSL https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl && \
     chmod +x /usr/local/bin/kubectl
 
-ENV KUBE_SCORE_VERSION="v1.2.1"
+ENV KUBE_SCORE_VERSION="v1.11.0"
 
 COPY --from=zegl/kube-score:v1.2.1 /kube-score /usr/local/bin/kube-score
 
-ENV VAULT_SYNC_PLUGIN_VERSION="0.2.0"
+ENV VAULT_SYNC_PLUGIN_VERSION="0.2.4"
 
 RUN \
     curl -fsSLO https://github.com/postfinance/kubectl-vault_sync/releases/download/v${VAULT_SYNC_PLUGIN_VERSION}/kubectl-vault-sync_linux_x86_64-${VAULT_SYNC_PLUGIN_VERSION}.zip && \
